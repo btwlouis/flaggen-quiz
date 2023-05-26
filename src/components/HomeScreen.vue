@@ -157,8 +157,17 @@ export default {
           let index = 0;
 
           for (const code in data) {
+            // check if .svg file exists
+            let image;
+
+            try {
+              image = require(`@/assets/countries/${code}.svg`);
+            } catch (error) {
+              console.error(`Flag ${code} does not exist`);
+              continue;
+            }
+
             const name = data[code];
-            const image = `https://flagcdn.com/${code}.svg`;
 
             this.questions[index] = {
               image: image,
@@ -181,14 +190,20 @@ export default {
     fetchQuestionsEurope() {
       // Anfrage an die API von flagcdn.com senden, um alle Flaggen abzurufen
       let index = 0;
+      for (let i=0; i<this.countries.length; i++) {
+        const item = this.countries[i];
 
-      this.countries.forEach(item => {
         const name = item.name;
         const code = item.code;
 
-        console.log(name, code)
+        let image;
 
-        const image = `https://flagcdn.com/${code}.svg`;
+        try {
+          image = require(`@/assets/countries/${code}.svg`);
+        } catch (error) {
+          console.error(`Flag ${code} does not exist`);
+          continue;
+        }
 
         this.questions[index] = {
           image: image,
@@ -196,7 +211,7 @@ export default {
         }
 
         index++;
-      })
+      }
       this.questions = this.questions.sort(() => Math.random() - 0.5);
 
       // randomize questions
