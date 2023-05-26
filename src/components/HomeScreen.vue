@@ -168,6 +168,8 @@ export default {
             index++;
           }
 
+          this.questions = this.questions.sort(() => Math.random() - 0.5);
+
           this.nextQuestion();
 
           console.log(`Finished fetching ${index} questions`)
@@ -195,9 +197,9 @@ export default {
 
         index++;
       })
+      this.questions = this.questions.sort(() => Math.random() - 0.5);
 
       // randomize questions
-      this.questions = this.questions.sort(() => Math.random() - 0.5);
       this.nextQuestion();
 
       console.log(`Finished fetching ${index} questions`)
@@ -215,7 +217,6 @@ export default {
 
     },
     nextQuestion() {
-      this.questions = this.questions.sort(() => Math.random() - 0.5);
 
       this.currentQuestionIndex++;
       this.currentView = 'options';
